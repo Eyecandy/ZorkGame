@@ -26,17 +26,18 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
                     <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                        <manifest>
+                            <mainClass>io.muic.ooc.zork.Main</mainClass>
+                        </manifest>
                     </archive>
                 </configuration>
-                ...
             </plugin>
 
         </plugins>
