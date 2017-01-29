@@ -10,20 +10,14 @@ public abstract  class  Item  {
     public String getName() {
         return this.name;
     }
-
-     public void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
     public void setEquipable(boolean equipable) {
         this.equipable = equipable;
     }
-
-    public Boolean getEquipable() {
+    public Boolean isEquipable() {
         return equipable;
     }
-
-
-
-
 
 }

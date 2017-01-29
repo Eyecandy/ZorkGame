@@ -2,44 +2,75 @@ package io.muic.ooc.zork;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by joakimnilfjord on 1/28/2017 AD.
  */
 public class Room {
-    private final int SOUTH=1;
-    private final int NORTH=2;
-    private final int EAST=3;
-    private final int WEST=4;
-    private int DOWN = 5;
-    private int UP=6;
-    Player player;
-
-    HashMap<Integer,ArrayList<Item>>  itemAtDir;
+    private final String SOUTH="South";
+    private final String NORTH="North";
+    private final String EAST="East";
+    private final String WEST="West";
     private String name;
-    public Room(String name) {
+    private Story roomStory;
+    private HashMap<String,HashSet<Item>>  itemAtDir = new HashMap<String, HashSet<Item>>();
+    
+    public void setName(String name) {
         this.name = name;
-        itemAtDir = new HashMap<Integer, ArrayList<Item>>();
+    }
+    public String getName() {
+        return name;
     }
 
-    public void addItemToRoom(int dir, Item item) {
-        ArrayList<Item> itemArrayList;
+    public void addItemToRoom(String dir, Item item) {
+        HashSet<Item> itemArrayList;
         if (itemAtDir.get(dir) == null) {
-            itemArrayList = new ArrayList<Item>();
+            itemArrayList = new HashSet<Item>();
             itemArrayList.add(item);
             itemAtDir.put(dir,itemArrayList);
-
         }
         else {
             itemArrayList = itemAtDir.get(dir);
             itemArrayList.add(item);
             itemAtDir.put(dir,itemArrayList);}
     }
+    public void removeItem(String dir,Item item) {
 
-    public void addPlayer(Player player) {
-        this.player = player;
-
+        if (itemAtDir.containsKey(dir)) {
+            HashSet<Item>  items = itemAtDir.get(dir);
+            if (items.contains(item)) {
+                items.remove(item);
+                itemAtDir.put(dir,items);
+            }
+        }
     }
+
+    public void setStory4(String southStory,String northStory, String eastStory,String westStory) {
+        roomStory = new Story();
+        roomStory.setDirToStory(SOUTH,southStory);
+        roomStory.setDirToStory(NORTH,northStory);
+        roomStory.setDirToStory(EAST,eastStory);
+        roomStory.setDirToStory(WEST,westStory);
+    }
+
+
+    public String getStory(String dir) {
+        return roomStory.getDirAndStory(dir);
+    }
+
+    public HashSet<Item> getItemsAtDir(String dir) {
+        return itemAtDir.get(dir);
+    }
+
+    public HashSet<Item> getItemAtdir(String dir) {
+        return itemAtDir.get(dir);
+    }
+
+
+
+
+
 
 
 
