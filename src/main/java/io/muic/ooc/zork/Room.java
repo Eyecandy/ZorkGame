@@ -15,6 +15,12 @@ public class Room {
     private String name;
     private Story roomStory;
     private HashMap<String,HashSet<Item>>  itemAtDir = new HashMap<String, HashSet<Item>>();
+    public Room() {
+        itemAtDir.put(SOUTH, new HashSet<Item>());
+        itemAtDir.put(NORTH, new HashSet<Item>());
+        itemAtDir.put(EAST, new HashSet<Item>());
+        itemAtDir.put(WEST, new HashSet<Item>());
+    }
     
     public void setName(String name) {
         this.name = name;
@@ -24,19 +30,19 @@ public class Room {
     }
 
     public void addItemToRoom(String dir, Item item) {
-        HashSet<Item> itemArrayList;
-        if (itemAtDir.get(dir) == null) {
-            itemArrayList = new HashSet<Item>();
-            itemArrayList.add(item);
-            itemAtDir.put(dir,itemArrayList);
+
+        HashSet<Item> itemHashSet;
+        if (itemAtDir.get(dir).isEmpty()) {
+            itemHashSet = new HashSet<Item>();
+            itemHashSet.add(item);
+            itemAtDir.put(dir,itemHashSet);
         }
         else {
-            itemArrayList = itemAtDir.get(dir);
-            itemArrayList.add(item);
-            itemAtDir.put(dir,itemArrayList);}
+            itemHashSet = itemAtDir.get(dir);
+            itemHashSet.add(item);
+            itemAtDir.put(dir,itemHashSet);}
     }
     public void removeItem(String dir,Item item) {
-
         if (itemAtDir.containsKey(dir)) {
             HashSet<Item>  items = itemAtDir.get(dir);
             if (items.contains(item)) {
@@ -46,7 +52,7 @@ public class Room {
         }
     }
 
-    public void setStory4(String southStory,String northStory, String eastStory,String westStory) {
+    public void setStory(String southStory, String northStory, String eastStory, String westStory) {
         roomStory = new Story();
         roomStory.setDirToStory(SOUTH,southStory);
         roomStory.setDirToStory(NORTH,northStory);
@@ -63,9 +69,8 @@ public class Room {
         return itemAtDir.get(dir);
     }
 
-    public HashSet<Item> getItemAtdir(String dir) {
-        return itemAtDir.get(dir);
-    }
+
+
 
 
 

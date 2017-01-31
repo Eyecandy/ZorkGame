@@ -20,4 +20,10 @@ public class StringToItemLibrary {
     public Boolean containsItem(String itemName) {
         return stringToItem.containsKey(itemName);
     }
+    public int getSize() {
+        return stringToItem.size();
+    }
+    public String getStringToItemLibraryAsString() {
+        return stringToItem.toString();
+    }
 }

@@ -1,19 +1,18 @@
 package io.muic.ooc.zork;
 
 import java.util.HashMap;
+import java.util.Scanner;
+
 
 /**
  * Created by joakimnilfjord on 1/28/2017 AD.
  */
 public class ZorkGame {
-    //private HashMap<String,Item> stringToItem = new HashMap<String, Item>();
+
     GameMap gameMap;
     Level level1;
-
-
-
-
-
+    Command command;
+    CommandParser commandParser;
 
     public void startLevel1() {
         StringToItemLibrary stringToItemLibrary = new StringToItemLibrary();
@@ -26,22 +25,9 @@ public class ZorkGame {
         player.setPosition(gameMap,0);
         player.setPlayerDirection("North");
         player.getPlayerDirection();
-        player.setPlayerDirection("South");
-        player.getPlayerDirection();
-        player.addToInventory("Xbow");
-        player.setPlayerDirection("East");
-        player.getPlayerDirection();
-        player.getInventory();
-        player.setPlayerDirection("West");
-        player.getPlayerDirection();
-        player.addToInventory("WoodenBox");
-        player.throwAnItem("Xbow");
-        player.getPlayerDirection();
-
-
-
-
-
+        command = new Command(player,gameMap);
+        commandParser = new CommandParser(command);
+        commandParser.startCommandParsing();
 
     }
 

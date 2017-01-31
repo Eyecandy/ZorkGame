@@ -6,6 +6,7 @@ package io.muic.ooc.zork;
 public abstract  class  Item  {
     private String name;
     private boolean equipable;
+    private String itemStory;
 
     public String getName() {
         return this.name;
@@ -18,6 +19,12 @@ public abstract  class  Item  {
     }
     public Boolean isEquipable() {
         return equipable;
+    }
+    public void setStory(String itemStory) {
+        this.itemStory = itemStory;
+    }
+    public String getObstacleStory() {
+        return itemStory;
     }
 
 }
