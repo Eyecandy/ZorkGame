@@ -37,7 +37,7 @@ public class Player {
         }
         else {
             for (int i=0;i < inventory.size();i++) {{
-                System.out.println(0 +": " +inventory.get(i).getName());}
+                System.out.println(i +": " +inventory.get(i).getName());}
             }
         }
     }
@@ -120,7 +120,7 @@ public class Player {
         }
     }
 
-    public int  enter(GameMap gameMap,String nameOfObjectThatPlayerWantsToEnter) {
+    public int enter(GameMap gameMap,String nameOfObjectThatPlayerWantsToEnter) {
         if (!stringToItemLibrary.containsItem(nameOfObjectThatPlayerWantsToEnter)) {
             System.out.println("There is no entrance by that name: " + nameOfObjectThatPlayerWantsToEnter);
             return 1;
@@ -138,6 +138,11 @@ public class Player {
 
             System.out.println((item.getName() + "....you can't enter that"));
             return 3;
+        }
+        else if (!((Entrance) item).getOpen()){
+            Entrance entrance = (Entrance) item;
+            System.out.println(entrance.getItemStorywhenClosed());
+            return 4;
         }
 
         else {
@@ -158,6 +163,101 @@ public class Player {
             return 0;
         }
     }
+
+    public int useTool(String toolName, String obstacleName) {
+        if (!stringToItemLibrary.containsItem(toolName)) {
+            System.out.println("There exist no such tool in this game: " + toolName);
+            return 1;
+        }
+        if (!stringToItemLibrary.containsItem(obstacleName)) {
+            System.out.println("There exist no such obstacle in this game: " + obstacleName);
+            return 2;
+        }
+        Item itemT = stringToItemLibrary.getItem(toolName);
+        Item itemO = stringToItemLibrary.getItem(obstacleName);
+
+        if (!(itemT instanceof Tool)) {
+            System.out.println("That won't do you any good here" + toolName);
+            return 3;
+        }
+        if (!(itemO instanceof Obstacle)) {
+            System.out.println(obstacleName + " ain't an obstacle bro.");
+            return 4;
+        }
+        if (!inventory.contains(itemT)) {
+            System.out.println(("You have no such item in inventory:" + toolName));
+            return 5;
+        }
+
+        if (!room.getItemsAtDir(playerDirection).contains(itemO)) {
+            System.out.println(("It's no such obstacle at this room in this direction: "+ obstacleName));
+            return 6;
+
+        }
+
+
+        Tool tool = (Tool) stringToItemLibrary.getItem(toolName);
+        Obstacle obstacle = (Obstacle) stringToItemLibrary.getItem(obstacleName);
+        if (obstacle.getOpen()) {
+            System.out.println("No point in using any tools here it is already open");
+            return 8;
+        }
+        System.out.println(("Using " + toolName + "On " + obstacleName));
+
+        if (tool.getObstaclesWhichToolCanOpen().contains(obstacle)) {
+            System.out.println("seems like it worked, whoolaa");
+
+            obstacle.setOpen(true);
+            return 0;
+        }
+        else {
+            System.out.println("Hmm...that didn't work out for ya");
+            return 7;
+        }
+    }
+
+    public int open(String containerName) {
+        if (!stringToItemLibrary.containsItem(containerName)) {
+            System.out.println("There exist no such container in this game: " + containerName);
+            return 1;
+        }
+        Item item = stringToItemLibrary.getItem(containerName);
+        if (!room.getItemsAtDir(playerDirection).contains(item)) {
+            System.out.println("There is no such container at this room at this direction: "+ containerName);
+            return 2;
+        }
+
+        if (!(item instanceof Container)) {
+            System.out.println("That's not an container, now is it? (enter) is correct for entrances : " + containerName);
+            return 3;
+        }
+        Container container = (Container) stringToItemLibrary.getItem(containerName);
+        if (!container.getOpen()) {
+            System.out.println(container.getItemStorywhenClosed());
+            return 4;
+        }
+        else {
+            System.out.println("You've opened the container and find: ");
+            if (container.getContent().isEmpty()) {
+                System.out.println("That it is just an empty container");
+                return 5;
+            }
+
+            for (Item i: container.getContent()) {
+                room.addItemToRoom(playerDirection,i);
+                System.out.println(i.getName());
+            }
+            System.out.println("You take everything out of the container and put it on the floor for inspection");
+            for (Item item1: container.getContent()) {
+                container.removeContent(item1);
+            }
+
+            return 0;
+
+        }
+    }
+
+
 
 
 

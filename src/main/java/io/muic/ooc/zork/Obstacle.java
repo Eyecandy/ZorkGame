@@ -5,7 +5,6 @@ package io.muic.ooc.zork;
  */
 public class Obstacle extends Item {
     private boolean open;
-    private String keyToenter;
     private String itemStorywhenClosed;
     private String itemStory;
 
@@ -21,14 +20,6 @@ public class Obstacle extends Item {
         return open;
     }
 
-    public void setKeyToenter(String keyToenter) {
-        this.keyToenter = keyToenter;
-    }
-
-    public String getKeyToenter() {
-        return keyToenter;
-    }
-
     public void setItemStorywhenClosed(String itemStorywhenClosed) {
         this.itemStorywhenClosed = itemStorywhenClosed;
     }
@@ -40,7 +31,6 @@ public class Obstacle extends Item {
     public String getObstacleStory() {
 
         if (open) {
-
             return itemStory;
 
         }

@@ -23,13 +23,13 @@ public class ItemFactory {
 
     }
 
-    public Obstacle createObstacle(String obstacleName, boolean canEnter, String obstacleStory, String keyToEnter) {
+    public Obstacle createObstacle(String obstacleName, boolean canEnter, String obstacleStory) {
         Obstacle obstacle = new Obstacle();
         obstacle.setEquipable(false);
         obstacle.setName(obstacleName);
         obstacle.setStory(obstacleStory);
         obstacle.setOpen(canEnter);
-        obstacle.setKeyToenter(keyToEnter);
+
         stringToItemLibrary.setStringToItem(obstacleName,obstacle);
         return obstacle;
     }
@@ -45,13 +45,33 @@ public class ItemFactory {
         entrance.setName(entranceName);
         entrance.setStory(obstacleStory);
         entrance.setOpen(open);
-        //Note to self: there is a method called itemKey, I am not sure wether I should use it or not. but for now it is not here.
         if (!open) { entrance.setItemStorywhenClosed(ifClosedStory);}
         entrance.setEntranceRoom(roomNo);
         entrance.setGoBackToRoom(backwardRoomNo);
         stringToItemLibrary.setStringToItem(entranceName,entrance);
         return entrance;
     }
+
+    public Container createContainer(String containerName, String contanerStory, Item content, Boolean open, String storyClosed) {
+        Container container = new Container();
+        container.setEquipable(false);
+        container.setName(containerName);
+        container.setStory(contanerStory);
+        container.addContent(content);
+        container.setOpen(open);
+        container.setItemStorywhenClosed(storyClosed);
+        stringToItemLibrary.setStringToItem(containerName,container);
+        return container;
+    }
+
+    public Readable createReadable(String readableName, String Story) {
+        Readable readable = new Readable();
+        readable.setName(readableName); readable.setStory(Story);
+        readable.setEquipable(false);
+        stringToItemLibrary.setStringToItem(readableName,readable);
+        return readable;
+    }
+
 
     public StringToItemLibrary getStringToItemLibrary() {
         return stringToItemLibrary;

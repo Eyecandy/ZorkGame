@@ -16,8 +16,10 @@ public class GameMapGenerator {
         roomGenerator = new RoomGenerator(itemFactory);
         Room room1 = roomGenerator.createRoom1();
         Room room2 = roomGenerator.createRoom2();
+        Room room3 = roomGenerator.createRoom3();
         gameMap.addRoomToLevel(room1);
         gameMap.addRoomToLevel(room2);
+        gameMap.addRoomToLevel(room3);
         return gameMap;
     }
 

@@ -22,6 +22,8 @@ public class Command {
         knownKeyWord.add("quit");
         knownKeyWord.add("inventory");
         knownKeyWord.add("look");
+        knownKeyWord.add("use");
+        knownKeyWord.add("open");
         this.player = player;
         this.gameMap = gameMap;
 
@@ -50,6 +52,10 @@ public class Command {
 
         else if (commandToArray.length == 2) {
             OneArgPlusKeyWord(commandToArray[0],commandToArray[1]);
+        }
+        else if (commandToArray.length == 4) {
+            twoArgPlusTwoKeyWord(commandToArray[0],commandToArray[1],commandToArray[3]);
+
         }
         else {
             System.out.println(commandGivenByParser);
@@ -90,7 +96,18 @@ public class Command {
         else if (keyWord.equals("enter")) {
             player.enter(gameMap,arg);
         }
+        else if (keyWord.equals("open")) {
+            player.open(arg);
+        }
     }
+
+    public void twoArgPlusTwoKeyWord(String keyWord, String arg1,String arg2) {
+        if (keyWord.equals("use")) {
+            player.useTool(arg1,arg2);
+        }
+    }
+
+
 
 
 }

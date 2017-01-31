@@ -8,14 +8,15 @@ import java.util.Scanner;
  * Created by joakimnilfjord on 1/28/2017 AD.
  */
 public class ZorkGame {
-
     GameMap gameMap;
     Level level1;
     Command command;
     CommandParser commandParser;
+    ToolToObstacleLibrary toolToObstacleLibrary;
 
     public void startLevel1() {
         StringToItemLibrary stringToItemLibrary = new StringToItemLibrary();
+        toolToObstacleLibrary = new ToolToObstacleLibrary(stringToItemLibrary);
         ItemFactory itemFactory = new ItemFactory(stringToItemLibrary);
         GameMapGenerator gameMapGenerator = new GameMapGenerator(itemFactory);
         level1 = new Level(gameMapGenerator);
