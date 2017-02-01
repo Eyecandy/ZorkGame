@@ -51,7 +51,7 @@ public class Command {
         }
 
         else if (commandToArray.length == 2) {
-            OneArgPlusKeyWord(commandToArray[0],commandToArray[1]);
+           return OneArgPlusKeyWord(commandToArray[0],commandToArray[1]);
         }
         else if (commandToArray.length == 4) {
             twoArgPlusTwoKeyWord(commandToArray[0],commandToArray[1],commandToArray[3]);
@@ -80,24 +80,35 @@ public class Command {
         }
     }
 
-    public void OneArgPlusKeyWord(String keyWord, String arg) {
+    public int OneArgPlusKeyWord(String keyWord, String arg) {
         if (keyWord.equals("go")) {
             player.setPlayerDirection(arg);
             player.getPlayerDirection();
+            return 0;
         }
         else if (keyWord.equals("take")) {
             player.addToInventory(arg);
+            return 0;
 
         }
         else if (keyWord.equals("throw")) {
             player.throwAnItem(arg);
+            return 0;
         }
         else if (keyWord.equals("enter")) {
+
             player.enter(gameMap,arg);
+            if (player.getRoom().getName().equals("Level2")) {
+                return -1;
+
+            }
+
         }
         else if (keyWord.equals("open")) {
             player.open(arg);
+            return 0;
         }
+        return 0;
     }
 
     public void twoArgPlusTwoKeyWord(String keyWord, String arg1,String arg2) {

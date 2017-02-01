@@ -11,7 +11,7 @@ public class Container extends Obstacle {
     public void addContent(Item item) {
         content.add(item);
     }
-    public void removeContent(Item item) {content.remove(item);}
+
     public HashSet<Item> getContent() {
         return content;
     }

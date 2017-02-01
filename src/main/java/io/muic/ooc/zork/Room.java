@@ -14,12 +14,18 @@ public class Room {
     private final String WEST="West";
     private String name;
     private Story roomStory;
+    private HashMap<String,HashSet<Monster>> monsterAtdir = new HashMap<String, HashSet<Monster>>();
     private HashMap<String,HashSet<Item>>  itemAtDir = new HashMap<String, HashSet<Item>>();
     public Room() {
         itemAtDir.put(SOUTH, new HashSet<Item>());
         itemAtDir.put(NORTH, new HashSet<Item>());
         itemAtDir.put(EAST, new HashSet<Item>());
         itemAtDir.put(WEST, new HashSet<Item>());
+        monsterAtdir.put(SOUTH, new HashSet<Monster>());
+        monsterAtdir.put(NORTH, new HashSet<Monster>());
+        monsterAtdir.put(EAST, new HashSet<Monster>());
+        monsterAtdir.put(WEST, new HashSet<Monster>());
+
     }
     
     public void setName(String name) {
@@ -67,6 +73,17 @@ public class Room {
 
     public HashSet<Item> getItemsAtDir(String dir) {
         return itemAtDir.get(dir);
+    }
+
+    public void addMonster(String dir, Monster monster) {
+        HashSet<Monster> monsters = new HashSet<Monster>();
+        monsters.add(monster);
+
+        monsterAtdir.put(dir,monsters);
+    }
+
+    public HashMap<String, HashSet<Monster>> getMonsterAtdir() {
+        return monsterAtdir;
     }
 
 

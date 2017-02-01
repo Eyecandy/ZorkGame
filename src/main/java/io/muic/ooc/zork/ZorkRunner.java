@@ -8,7 +8,7 @@ public class ZorkRunner {
 
     public static void main(String[] args) {
         ZorkGame zorkGame = new ZorkGame();
-        zorkGame.startLevel1();
+        zorkGame.startGame();
 
 
 

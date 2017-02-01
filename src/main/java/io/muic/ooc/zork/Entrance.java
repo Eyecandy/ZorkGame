@@ -10,11 +10,9 @@ public class Entrance extends  Obstacle {
     public void setEntranceRoom(int roomNo) {
         entranceRoom = roomNo;
     }
-
     public int getEntranceRoom() {
         return entranceRoom;
     }
-
     public void setGoBackToRoom(int roomNo) {
         goBackToRoom = roomNo;
     }

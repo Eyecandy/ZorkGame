@@ -7,6 +7,7 @@ public class Level {
     String nameOfLevel;
     GameMapGenerator gameMapGenerator;
     GameMap gameMap;
+    String storyOfLevel;
     public Level(GameMapGenerator gameMapGenerator) {
         this.gameMapGenerator = gameMapGenerator;
     }
@@ -17,6 +18,9 @@ public class Level {
     public String getNameOfLevel() {
         return nameOfLevel;
     }
+    public void setStory(String storyOfLevel) {
+        this.storyOfLevel = storyOfLevel;
+    }
 
     public GameMap generateGameMap(int level) {
         switch (level) {
@@ -24,7 +28,12 @@ public class Level {
                 gameMap = gameMapGenerator.createMapLevel1();
                 return gameMap;
 
+            case 2:
+                gameMap = gameMapGenerator.createMapLevel2();
+                return gameMap;
             default:
+
+
                 return null;
         }
     }

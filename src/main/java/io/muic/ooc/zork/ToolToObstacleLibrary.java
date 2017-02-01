@@ -24,6 +24,8 @@ public class ToolToObstacleLibrary {
         stringToItemLibrary.setStringToItem(whiteKeyStone.getName(),whiteKeyStone);
         Tool rope = toolFactory.createTool("Rope","Long rope");
         stringToItemLibrary.setStringToItem(rope.getName(),rope);
+        Tool hammer = toolFactory.createTool("Hammer","the public's favorite tool");
+        stringToItemLibrary.setStringToItem(hammer.getName(),hammer);
 
     }
 

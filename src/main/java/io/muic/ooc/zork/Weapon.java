@@ -5,9 +5,8 @@ package io.muic.ooc.zork;
  */
 public class Weapon extends Item {
     private int damage;
-    public void getDamage() {
-        System.out.println(damage);
-    }
+    public int getDamage(){return damage;}
+
     public void setDamage(int damage) {
         this.damage = damage;
     }

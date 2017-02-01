@@ -9,6 +9,7 @@ import java.util.EmptyStackException;
  */
 public class RoomGenerator {
     ItemFactory itemFactory;
+    MonsterFactory monsterFactory = new MonsterFactory();
     public RoomGenerator(ItemFactory itemFactory) {
         this.itemFactory = itemFactory;
     }
@@ -18,8 +19,7 @@ public class RoomGenerator {
         room1.setStory("There is a wall", "There is a Heavy Metal door",
                 "There is Wall", "Stairs without end, leading upwards in a spiral");
         Weapon torch = itemFactory.createWeapon("Torch", 5, "It is ligting the room up");
-        //Obstacle woodenBox = itemFactory.createObstacle("Wooden_box",true,
-              //" which appears to be old");
+
         Entrance stairs = itemFactory.createEntrance("Stairs", true, "to go there press: enter [ entranceName ] ", 1 ,0,"it's closed");
         Entrance heavyMetal = itemFactory.createEntrance("Metal_door",false,
                 "It's barricaded from the outside",
@@ -127,10 +127,48 @@ public class RoomGenerator {
         room5.addItemToRoom("East",longSteps);
         room5.addItemToRoom("West",brokenSteps);
         room5.addItemToRoom("South",readable);
-
-
-
         return room5;
+    }
+
+    public Room createRoom6() {
+        Room room6 = new Room();
+        room6.setName("The Plateau");
+        room6.setStory("It's dirty here and filled with spiderwebs", "A dark hallway", "A stone wall" ,"A metal gate");
+        Entrance metalGate = itemFactory.createEntrance("Metal_gate",false,"open",0,0,"it's to heavy to open this gate");
+        Entrance darkHallWay = itemFactory.createEntrance("Dark_hall_way",true,"it's dark,but entering is possible",1,0,"never closed");
+        Readable readable = itemFactory.createReadable("Blood_marks","of finger prints covers the the entrance of the hallway, consumed by the darkness of the hallway");
+        Weapon greatSword = itemFactory.createWeapon("Great_sword",32,"it's filled with magic and stuff");
+        Container marbleLockBox =itemFactory.createContainer("Marble_lock_box","'marbelous' it's open now",greatSword,false,"it's closed");
+        Container treasureChest = itemFactory.createContainer("Treasure_chest","It's open",marbleLockBox,false,"it's locked");
+        Tool hammer = (Tool) itemFactory.stringToItemLibrary.getItem("Hammer");
+
+        hammer.setThingsToolCanOpen(treasureChest);
+        hammer.setThingsToolCanOpen(marbleLockBox);
+
+
+        room6.addItemToRoom("South",hammer);
+        room6.addItemToRoom("East",treasureChest);
+        room6.addItemToRoom("West",metalGate);
+        room6.addItemToRoom("North" ,darkHallWay);
+        room6.addItemToRoom("North",readable);
+
+
+        return room6;
 
     }
+
+    public Room createRoom7(){
+        Room room7 = new Room();
+        room7.setName("The ruined chamber");
+        room7.setStory("S", "N","E","W");
+        Weapon weapon = itemFactory.createWeapon("Spear",39, "Great spear is great");
+        Monster monster =  monsterFactory.createMonster(1,"wicked_spirit",26,100);
+        monster.addToMonsterInventory(weapon);
+        room7.addMonster("East",monster);
+        return room7;
+
+    }
+
+
+
 }

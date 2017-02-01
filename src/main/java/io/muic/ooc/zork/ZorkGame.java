@@ -10,23 +10,40 @@ import java.util.Scanner;
 public class ZorkGame {
     GameMap gameMap;
     Level level1;
+    Level level2;
+    Level level3;
     Command command;
     CommandParser commandParser;
     ToolToObstacleLibrary toolToObstacleLibrary;
 
-    public void startLevel1() {
+
+    public void startGame() {
+
         StringToItemLibrary stringToItemLibrary = new StringToItemLibrary();
         toolToObstacleLibrary = new ToolToObstacleLibrary(stringToItemLibrary);
         ItemFactory itemFactory = new ItemFactory(stringToItemLibrary);
         GameMapGenerator gameMapGenerator = new GameMapGenerator(itemFactory);
+
         level1 = new Level(gameMapGenerator);
-        Player player = new Player("Jo",100,14,stringToItemLibrary);
         level1.setName("The tall tower: Level 1");
+        level1.setStory("Objective: find your way out!");
         level1.getNameOfLevel();
         gameMap = level1.generateGameMap(1);
+
+        Player player = new Player("Jo",100,14,stringToItemLibrary);
         player.setPosition(gameMap,0);
         player.setPlayerDirection("North");
         player.getPlayerDirection();
+
+        command = new Command(player,gameMap);
+        commandParser = new CommandParser(command);
+        commandParser.startCommandParsing();
+
+        level2 = new Level(gameMapGenerator);
+        level2.setName("The tall tower: Level 2");
+        level2.setStory("After hours of walking you find yourself at plateau, as you enter it a iron gate slams shut behind you");
+        gameMap = level2.generateGameMap(2);
+        player.setPosition(gameMap,0);
         command = new Command(player,gameMap);
         commandParser = new CommandParser(command);
         commandParser.startCommandParsing();

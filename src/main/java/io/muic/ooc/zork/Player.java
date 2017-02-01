@@ -4,6 +4,7 @@ package io.muic.ooc.zork;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 
 /**
  * Created by joakimnilfjord on 1/28/2017 AD.
@@ -23,13 +24,16 @@ public class Player {
         this.name = name;
         this.health = health;
 
-        this.inventorySize = 14;
+        this.inventorySize = 10;
         this.stringToItemLibrary = stringToItemLibrary;
         validDirections.add("South");validDirections.add("West");
         validDirections.add("North");validDirections.add("East");
     }
     public void getName() {
         System.out.println(name);
+    }
+    private void setHealth(int damage) {
+        health -= damage;
     }
 
     public void getInventory() {
@@ -104,15 +108,26 @@ public class Player {
 
     public void setPlayerDirection(String playerDirection) {
 
-        if (validDirections.contains(playerDirection)) {this.playerDirection = playerDirection;}
+        if (validDirections.contains(playerDirection)) {this.playerDirection = playerDirection;
+        }
     }
 
     public String getPlayerDirection() {
         System.out.println(room.getName()+ ", " + room.getStory(playerDirection));
         getItemAtDirection();
+        getMonsterAtdir();
         return playerDirection;
 
     }
+    private void getMonsterAtdir() {
+        if (room.getMonsterAtdir().containsKey(playerDirection) && !room.getMonsterAtdir().isEmpty()) {
+            for (Monster monster :room.getMonsterAtdir().get(playerDirection)) {
+                System.out.println(monster.getName()+": " +monster.getStory());
+            }
+
+        }
+    }
+    
     private void getItemAtDirection() {
         HashSet<Item> itemsAtDir = room.getItemsAtDir(playerDirection);
         if (itemsAtDir != null && !itemsAtDir.isEmpty()) {
@@ -216,6 +231,7 @@ public class Player {
         }
     }
 
+
     public int open(String containerName) {
         if (!stringToItemLibrary.containsItem(containerName)) {
             System.out.println("There exist no such container in this game: " + containerName);
@@ -253,6 +269,70 @@ public class Player {
             return 0;
 
         }
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public int attack(String weaponName,String monsterName) {
+        if (!stringToItemLibrary.containsItem(weaponName)) {
+            System.out.println("There exist no such weapon in the game: "+ weaponName);
+            return 1;
+        }
+
+        if (!(stringToItemLibrary.getItem(weaponName) instanceof Weapon)) {
+            System.out.println("That is not a weapon: " + weaponName);
+            return 2;
+        }
+        if (!room.getMonsterAtdir().containsKey(playerDirection) || room.getMonsterAtdir().get(playerDirection).isEmpty()) {
+            System.out.println("There is no such Monster here: "+ monsterName);
+            return 3;
+        }
+
+        Weapon weaponOfChoice = (Weapon) stringToItemLibrary.getItem(weaponName);
+        if (!inventory.contains(weaponOfChoice)) {
+            System.out.println("You do not posses that weapon: " + weaponName);
+        }
+        for (Monster monster :room.getMonsterAtdir().get(playerDirection)) {
+            if (monster.getName().equals(monsterName)) {
+                if (!monster.getIsAlive()) {
+                    System.out.println("That's a corpse, you are trying to hit..dummy");
+                    return 4;
+                }
+                int damage = weaponOfChoice.getDamage();
+                int monsterHealth  =monster.getHealth();
+                Random random = new Random();
+                int damagePlayer = random.nextInt(damage) +1;
+                int damageMonster = random.nextInt(monster.getDamage())+1;
+                int tempHealth = health;
+                monster.setHealth(damagePlayer);
+                System.out.println("You deal " + damagePlayer+ " damage, Health of " + monsterName + " Was "+ monsterHealth+ " and is now " + monster.getHealth());
+                setHealth(damageMonster);
+                System.out.println("retaliated with "+ damageMonster + " damage , your health was " +tempHealth+" is now "+ health);
+
+                if (monster.getHealth() <= 0) {
+                    HashSet<Item> loot =  monster.setDead();
+                    for (Item item: loot) {
+                        room.addItemToRoom(playerDirection,item);
+                        System.out.println("Monster drops " + item.getName());
+                    }
+                    return 0;
+                }
+
+                if (damagePlayer>damageMonster) {
+                    System.out.println("You've hurt " + monster.getName() + ",but it falls back into to the shadows of room... lurking");
+                    System.out.println("Be on guard!");
+                    String dir= (String )validDirections.toArray()[random.nextInt(3)+1];
+                room.addMonster(dir,monster);
+                room.getMonsterAtdir().get(playerDirection).clear();
+
+                }
+            }
+        }
+        return 2;
+
+
     }
 
 
