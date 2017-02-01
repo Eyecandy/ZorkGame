@@ -22,7 +22,8 @@ public class Player {
     public Player(String name,int health,int inventorySize, StringToItemLibrary stringToItemLibrary) {
         this.name = name;
         this.health = health;
-        this.inventorySize = inventorySize;
+
+        this.inventorySize = 14;
         this.stringToItemLibrary = stringToItemLibrary;
         validDirections.add("South");validDirections.add("West");
         validDirections.add("North");validDirections.add("East");
@@ -65,6 +66,7 @@ public class Player {
         }
 
         else if (inventory.size() >= inventorySize) {
+
             System.out.println("Your inventory is full, throw an item out to clear space");
             return 4;
 
@@ -192,9 +194,7 @@ public class Player {
         if (!room.getItemsAtDir(playerDirection).contains(itemO)) {
             System.out.println(("It's no such obstacle at this room in this direction: "+ obstacleName));
             return 6;
-
         }
-
 
         Tool tool = (Tool) stringToItemLibrary.getItem(toolName);
         Obstacle obstacle = (Obstacle) stringToItemLibrary.getItem(obstacleName);
@@ -248,9 +248,7 @@ public class Player {
                 System.out.println(i.getName());
             }
             System.out.println("You take everything out of the container and put it on the floor for inspection");
-            for (Item item1: container.getContent()) {
-                container.removeContent(item1);
-            }
+            container.getContent().clear();
 
             return 0;
 

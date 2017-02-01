@@ -20,8 +20,9 @@ public class ZorkGame {
         ItemFactory itemFactory = new ItemFactory(stringToItemLibrary);
         GameMapGenerator gameMapGenerator = new GameMapGenerator(itemFactory);
         level1 = new Level(gameMapGenerator);
-        Player player = new Player("Jo",100,4,stringToItemLibrary);
-        level1.setName("The tall tower");
+        Player player = new Player("Jo",100,14,stringToItemLibrary);
+        level1.setName("The tall tower: Level 1");
+        level1.getNameOfLevel();
         gameMap = level1.generateGameMap(1);
         player.setPosition(gameMap,0);
         player.setPlayerDirection("North");

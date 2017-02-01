@@ -80,7 +80,6 @@ public class Command {
         }
     }
 
-
     public void OneArgPlusKeyWord(String keyWord, String arg) {
         if (keyWord.equals("go")) {
             player.setPlayerDirection(arg);
