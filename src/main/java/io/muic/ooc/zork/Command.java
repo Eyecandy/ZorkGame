@@ -10,9 +10,9 @@ import java.util.HashSet;
  */
 public class Command {
 
-    HashSet<String>  knownKeyWord = new HashSet<String>();
-    Player player;
-    GameMap gameMap;
+    private HashSet<String>  knownKeyWord = new HashSet<String>();
+    private Player player;
+    private GameMap gameMap;
     public Command(Player player,GameMap gameMap) {
         this.player = player;
         knownKeyWord.add("go");
@@ -24,6 +24,7 @@ public class Command {
         knownKeyWord.add("look");
         knownKeyWord.add("use");
         knownKeyWord.add("open");
+        knownKeyWord.add("attack");
         this.player = player;
         this.gameMap = gameMap;
 
@@ -114,6 +115,8 @@ public class Command {
         if (keyWord.equals("use")) {
             player.useTool(arg1,arg2);
         }
+        if (keyWord.equals("attack")) {player.attack(arg2,arg1);}
+
     }
 
 

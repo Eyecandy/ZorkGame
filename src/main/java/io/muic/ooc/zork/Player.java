@@ -24,7 +24,7 @@ public class Player {
     public Player(String name,int health,int inventorySize, StringToItemLibrary stringToItemLibrary) {
         this.name = name;
         this.health = health;
-        this.inventorySize = 10;
+        this.inventorySize = inventorySize;
         this.stringToItemLibrary = stringToItemLibrary;
         validDirections.add("South");validDirections.add("West");
         validDirections.add("North");validDirections.add("East");

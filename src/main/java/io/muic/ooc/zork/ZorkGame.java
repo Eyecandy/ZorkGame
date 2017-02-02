@@ -51,11 +51,15 @@ public class ZorkGame {
 
         level3 = new Level(gameMapGenerator);
         level3.setName("The top of the tower : Level 3");
-        level3.setName("You've reached the top of the tower");
+        level3.setStory("You've reached the top of the tower");
         gameMap = level3.generateGameMap(3);
         level3.getNameOfLevel();
         player.setPosition(gameMap,0);
+        command = new Command(player,gameMap);
+        commandParser = new CommandParser(command);
         commandParser.startCommandParsing();
+
+
 
 
 
