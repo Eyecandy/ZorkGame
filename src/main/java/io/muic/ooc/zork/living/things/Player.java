@@ -226,7 +226,7 @@ public class Player {
             System.out.println("No point in using any tools here it is already open");
             return 8;
         }
-        System.out.println(("Using " + toolName + "On " + obstacleName));
+        System.out.println(("Using " + toolName + " On " + obstacleName));
 
         if (tool.getObstaclesWhichToolCanOpen().contains(obstacle)) {
             System.out.println("seems like it worked, whoolaa");

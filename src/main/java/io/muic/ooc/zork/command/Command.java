@@ -114,14 +114,17 @@ public class Command {
         return 0;
     }
 
-    public void twoArgPlusTwoKeyWord(String keyWord, String arg1, String arg2) {
+    public int twoArgPlusTwoKeyWord(String keyWord, String arg1, String arg2) {
         if (keyWord.equals("use")) {
             player.useTool(arg1, arg2);
+            return 0;
         }
         if (keyWord.equals("attack")) {
             player.attack(arg2, arg1);
+            return 0;
         } else {
             System.out.println("I did not understand that");
+            return 1;
         }
     }
 }
