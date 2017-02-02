@@ -26,6 +26,10 @@ public class ToolToObstacleLibrary {
         stringToItemLibrary.setStringToItem(rope.getName(),rope);
         Tool hammer = toolFactory.createTool("Hammer","the public's favorite tool");
         stringToItemLibrary.setStringToItem(hammer.getName(),hammer);
+        Tool magicalClimbingGloves = toolFactory.createTool("Magical_climbing_gloves","you ever wanted to climb walls? well now you can");
+        stringToItemLibrary.setStringToItem(magicalClimbingGloves.getName(),magicalClimbingGloves);
+        Tool portalKey = toolFactory.createTool("Portal_key","key to portal");
+        stringToItemLibrary.setStringToItem(portalKey.getName(),portalKey);
 
     }
 

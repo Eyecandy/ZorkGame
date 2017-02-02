@@ -19,16 +19,17 @@ public class Player {
     private String playerDirection;
     private StringToItemLibrary stringToItemLibrary;
     private HashSet<String> validDirections = new HashSet<String>();
+    private GameMap gameMap;
 
     public Player(String name,int health,int inventorySize, StringToItemLibrary stringToItemLibrary) {
         this.name = name;
         this.health = health;
-
         this.inventorySize = 10;
         this.stringToItemLibrary = stringToItemLibrary;
         validDirections.add("South");validDirections.add("West");
         validDirections.add("North");validDirections.add("East");
     }
+
     public void getName() {
         System.out.println(name);
     }
@@ -42,7 +43,10 @@ public class Player {
         }
         else {
             for (int i=0;i < inventory.size();i++) {{
-                System.out.println(i +": " +inventory.get(i).getName());}
+                if (inventory.get(i) instanceof Weapon) {System.out.println(i +": " +inventory.get(i).getName() + " (Weapon) damage:" + ((Weapon) inventory.get(i)).getDamage());}
+                else {System.out.println(i +": " +inventory.get(i).getName() + " (Tool)");}
+            }
+
             }
         }
     }
@@ -102,6 +106,7 @@ public class Player {
         }
     }
     public void setPosition(GameMap gameMap,int roomNo) {
+        this.gameMap = gameMap;
         currRoomNO = roomNo;
         room = gameMap.getMap().get(roomNo);
     }
@@ -313,26 +318,32 @@ public class Player {
 
                 if (monster.getHealth() <= 0) {
                     HashSet<Item> loot =  monster.setDead();
+                    loot.size();
                     for (Item item: loot) {
                         room.addItemToRoom(playerDirection,item);
                         System.out.println("Monster drops " + item.getName());
                     }
                     return 0;
                 }
+                if (health <= 0) {
+                setDead(monster);}
 
-                if (damagePlayer>damageMonster) {
-                    System.out.println("You've hurt " + monster.getName() + ",but it falls back into to the shadows of room... lurking");
-                    System.out.println("Be on guard!");
-                    String dir= (String )validDirections.toArray()[random.nextInt(3)+1];
-                room.addMonster(dir,monster);
-                room.getMonsterAtdir().get(playerDirection).clear();
-
-                }
+//                if (damagePlayer>damageMonster) {
+//                    System.out.println("You've hurt " + monster.getName() + ",but it falls back into to the shadows of room... lurking");
+//                    System.out.println("Be on guard!");
+//                    String dir= (String )validDirections.toArray()[random.nextInt(3)+1];
+//                room.addMonster(dir,monster);
+//                room.getMonsterAtdir().get(playerDirection).clear();
+//
+//                }
             }
         }
         return 2;
-
-
+    }
+    private void setDead(Monster monster) {
+        setPosition(gameMap,currRoomNO-1);
+        health = 100;
+        monster.setHealth(100);
     }
 
 

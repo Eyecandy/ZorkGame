@@ -23,16 +23,6 @@ public class ItemFactory {
 
     }
 
-    public Obstacle createObstacle(String obstacleName, boolean canEnter, String obstacleStory) {
-        Obstacle obstacle = new Obstacle();
-        obstacle.setEquipable(false);
-        obstacle.setName(obstacleName);
-        obstacle.setStory(obstacleStory);
-        obstacle.setOpen(canEnter);
-
-        stringToItemLibrary.setStringToItem(obstacleName,obstacle);
-        return obstacle;
-    }
 
     public Entrance createEntrance(String entranceName,
                                    boolean open,

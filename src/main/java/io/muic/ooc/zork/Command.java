@@ -98,9 +98,8 @@ public class Command {
         else if (keyWord.equals("enter")) {
 
             player.enter(gameMap,arg);
-            if (player.getRoom().getName().equals("Level2")) {
+            if (player.getRoom().getName().equals("Level2") || player.getRoom().getName().equals("Level3") || player.getRoom().getName().equals("Done")) {
                 return -1;
-
             }
 
         }

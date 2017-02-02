@@ -141,9 +141,9 @@ public class RoomGenerator {
         Container marbleLockBox =itemFactory.createContainer("Marble_lock_box","'marbelous' it's open now",greatSword,false,"it's closed");
         Container treasureChest = itemFactory.createContainer("Treasure_chest","It's open",marbleLockBox,false,"it's locked");
         Tool hammer = (Tool) itemFactory.stringToItemLibrary.getItem("Hammer");
-
         hammer.setThingsToolCanOpen(treasureChest);
         hammer.setThingsToolCanOpen(marbleLockBox);
+
 
 
         room6.addItemToRoom("South",hammer);
@@ -160,14 +160,72 @@ public class RoomGenerator {
     public Room createRoom7(){
         Room room7 = new Room();
         room7.setName("The ruined chamber");
+        Weapon toothPick = itemFactory.createWeapon("Tooth_pick",1,"It has been used");
+        Container crackedJar = itemFactory.createContainer("Cracked_jar","An antic jar, pity is cracked",
+                toothPick,true,"Never closed");
         room7.setStory("S", "N","E","W");
+        Entrance theGreatWall = itemFactory.createEntrance("The_great_wall", false,"daym, u go some cool magical gloves, seems you can climb up now",2,1,"no way you can go up there");
+        Tool magicalClimbingGloves = (Tool) itemFactory.getStringToItemLibrary().getItem("Magical_climbing_gloves");
+        magicalClimbingGloves.setThingsToolCanOpen(theGreatWall);
         Weapon weapon = itemFactory.createWeapon("Spear",39, "Great spear is great");
-        Monster monster =  monsterFactory.createMonster(1,"wicked_spirit",26,100);
+        Monster monster =  monsterFactory.createMonster(1,"wicked_spirit",10,80);
+        monster.addToMonsterInventory(magicalClimbingGloves);
         monster.addToMonsterInventory(weapon);
+        Entrance entrance = (Entrance) itemFactory.stringToItemLibrary.getItem("Dark_hall_way");
+        room7.addItemToRoom("South",entrance);
+        room7.addItemToRoom("West",theGreatWall);
+        room7.addItemToRoom("North",crackedJar);
         room7.addMonster("East",monster);
         return room7;
-
     }
+
+    public Room createRoom8() {
+        Room room8 = new Room();
+        room8.setName("The top of the tower");
+        room8.setStory("","","","");
+        Entrance purpleWall = itemFactory.createEntrance("Purple_wall",false,"no open",0,0,"A purple wall, it appeared behind you, right as you climbed up it's some kinda dark magic");
+        Entrance openGate = itemFactory.createEntrance("Open_gate",true,"it's open",1,0,"not");
+        Weapon boomStick = itemFactory.createWeapon("Boom_stick",50,"it comes with bullets");
+        Readable readable1 = itemFactory.createReadable("in_blood","did you have fun yet?");
+        Readable readable2 = itemFactory.createReadable("in_blood2","you killed my little creation down there....at a price");
+        Readable readable3 = itemFactory.createReadable("in_blood3","There is one more challenge ahead..do you see the open door");
+        Readable readable4 = itemFactory.createReadable("in_blood4","My birds are always hungry,I welcome you");
+        itemFactory.stringToItemLibrary.setStringToItem(openGate.getName(),openGate);
+        itemFactory.stringToItemLibrary.setStringToItem(purpleWall.getName(),purpleWall);
+        itemFactory.stringToItemLibrary.setStringToItem(boomStick.getName(),boomStick);
+        itemFactory.stringToItemLibrary.setStringToItem(readable1.getName(),readable1);
+        itemFactory.stringToItemLibrary.setStringToItem(readable2.getName(),readable2);
+        itemFactory.stringToItemLibrary.setStringToItem(readable3.getName(),readable3);
+        itemFactory.stringToItemLibrary.setStringToItem(readable4.getName(),readable4);
+
+
+        room8.addItemToRoom("South",readable1);
+        room8.addItemToRoom("North",readable2);
+        room8.addItemToRoom("West",readable3);
+        room8.addItemToRoom("East",readable4);
+        room8.addItemToRoom("South",purpleWall);
+        room8.addItemToRoom("North",openGate);
+        room8.addItemToRoom("West",boomStick);
+        return room8;
+    }
+
+
+    public Room createRoom9(){
+        Room room9 = new Room();
+        room9.setName("The outside plateau");
+        Tool portalKey = (Tool) itemFactory.stringToItemLibrary.getItem("Portal_key");
+        Entrance portal = itemFactory.createEntrance("Portal",false,"portal outta here",2,1,"closed portal");
+        room9.setStory("The wind blows strongly, like it's powerful and dangerous", "There is a pillar, it offers shelter from the wind","There is gushing wind, that goes through bones", "There is a supersonic wind, have you ever felt a supersonic wind before...I didn't think so");
+        portalKey.setThingsToolCanOpen(portal);
+
+        Monster clown = monsterFactory.createMonster(1,"Clown",2,95);
+        clown.addToMonsterInventory(portalKey);
+        room9.addItemToRoom("West",portal);
+        room9.addMonster("South",clown);
+        return room9;
+    }
+
+
 
 
 

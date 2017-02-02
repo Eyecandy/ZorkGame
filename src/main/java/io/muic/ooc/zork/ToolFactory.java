@@ -8,6 +8,7 @@ package io.muic.ooc.zork;
 public class ToolFactory {
 
     public Tool createTool(String toolName, String toolStory ){
+
         Tool tool = new Tool();
         tool.setName(toolName);
         tool.setStory(toolStory);

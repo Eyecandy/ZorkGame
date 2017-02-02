@@ -15,8 +15,9 @@ public class Level {
     public void setName(String nameOfLevel) {
         this.nameOfLevel = nameOfLevel;
     }
-    public String getNameOfLevel() {
-        return nameOfLevel;
+    public void getNameOfLevel() {
+        System.out.println(nameOfLevel);
+        System.out.println(storyOfLevel);
     }
     public void setStory(String storyOfLevel) {
         this.storyOfLevel = storyOfLevel;
@@ -31,6 +32,11 @@ public class Level {
             case 2:
                 gameMap = gameMapGenerator.createMapLevel2();
                 return gameMap;
+            case 3:
+
+                gameMap = gameMapGenerator.createMapLevel3();
+                return gameMap;
+
             default:
 
 

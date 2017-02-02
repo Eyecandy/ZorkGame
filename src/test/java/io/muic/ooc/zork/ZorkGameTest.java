@@ -117,47 +117,96 @@ public class ZorkGameTest extends TestCase {
 //        player.setPlayerDirection("West");
 //        player.enter(gameMap,"Broken_steps");
 
-        level2 = new Level(gameMapGenerator);
-        level2.setName("The tall tower: Level 2");
-        gameMap = level2.generateGameMap(2);
+//        level2 = new Level(gameMapGenerator);
+//        level2.setName("The tall tower: Level 2");
+//        gameMap = level2.generateGameMap(2);
+//        player.setPosition(gameMap,0);
+//        player.getPlayerDirection();
+//        player.getInventory();
+//        player.throwAnItem("Torch");
+//        player.setPlayerDirection("South");
+//        player.getPlayerDirection();
+//        player.addToInventory("Hammer");
+//        player.getInventory();
+//        player.setPlayerDirection("East");
+//        player.getPlayerDirection();
+//        player.useTool("Hammer","Treasure_chest");
+//        player.open("Treasure_chest");
+//        player.useTool("Hammer","Marble_lock_box");
+//        player.open("Marble_lock_box");
+//        player.addToInventory("Great_sword");
+//        player.setPlayerDirection("North");
+//        player.getPlayerDirection();
+//        player.enter(gameMap,"Dark_hall_way");
+//        player.setPlayerDirection("East");
+//        player.getPlayerDirection();
+//        //This testing will only work if randomized location is turned off on monster. I.e comment it out
+//        player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
+//        player.attack("Great_sword","wicked_spirit");player.attack("Great_sword","wicked_spirit");
+//        player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
+//        player.attack("Great_sword","wicked_spirit");player.attack("Great_sword","wicked_spirit");
+//        player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
+//        player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
+//        player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
+//        player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
+//
+//        player.getPlayerDirection();
+//        player.addToInventory("Magical_climbing_gloves");
+//        player.addToInventory("Spear");
+//        player.setPlayerDirection("West");
+//        player.useTool("Magical_climbing_gloves","The_great_wall");
+//        player.enter(gameMap,"The_great_wall");
+
+        level3 = new Level(gameMapGenerator);
+        level3.setName("The top of the tower : Level 3");
+        level3.setStory("You've reached the top of the tower");
+        gameMap = level3.generateGameMap(3);
+        level3.getNameOfLevel();
         player.setPosition(gameMap,0);
         player.getPlayerDirection();
-        player.getInventory();
-        player.throwAnItem("Torch");
         player.setPlayerDirection("South");
-        player.getPlayerDirection();
-        player.addToInventory("Hammer");
-        player.getInventory();
-        player.setPlayerDirection("East");
-        player.getPlayerDirection();
-        player.useTool("Hammer","Treasure_chest");
-        player.open("Treasure_chest");
-        player.useTool("Hammer","Marble_lock_box");
-        player.open("Marble_lock_box");
-        player.addToInventory("Great_sword");
-        player.setPlayerDirection("North");
-        player.getPlayerDirection();
-        player.enter(gameMap,"Dark_hall_way");
-        player.setPlayerDirection("East");
-        player.getPlayerDirection();
-        player.attack("Great_sword","wicked_spirit");
-        player.getPlayerDirection();
-        player.setPlayerDirection("South");
+        Assert.assertEquals(player.enter(gameMap,"Purple_wall"),4);
+
         player.getPlayerDirection();
         player.setPlayerDirection("North");
+        Assert.assertEquals(player.enter(gameMap,"Pufal"),1);
         player.getPlayerDirection();
-        player.setPlayerDirection("East");
-        player.getPlayerDirection();
+        Assert.assertEquals(player.enter(gameMap,"Purple_wall"),2);
         player.setPlayerDirection("West");
+        player.getPlayerDirection();
+        Assert.assertEquals(player.addToInventory("Boom_stick"),0);
+        player.setPlayerDirection("East");
+        player.setPlayerDirection("North");
+        player.enter(gameMap,"Open_gate");
 
-
-
-
-
-
-
-
-
+        player.setPlayerDirection("South");   player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");   player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.attack("Boom_stick","Clown");
+        player.addToInventory("Portal_key");
+        player.setPlayerDirection("West");
+        player.useTool("Portal_key","Portal");
+        player.getPlayerDirection();
+        player.enter(gameMap,"Portal");
 
 
     }
