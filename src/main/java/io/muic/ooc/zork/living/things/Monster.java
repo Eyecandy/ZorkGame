@@ -1,4 +1,7 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.living.things;
+
+import io.muic.ooc.zork.world.Room;
+import io.muic.ooc.zork.items.Item;
 
 import java.util.HashSet;
 
@@ -10,9 +13,7 @@ public class Monster {
     private int health;
     private int damage;
     private boolean isAlive = true;
-    String story = "it's lurking around..";
-    int pos;
-    Room room;
+    private String story = "it's lurking around..";
     HashSet<Item> monsterInventory = new HashSet<Item>();
 
     public void setDamage(int damage) {
@@ -21,14 +22,9 @@ public class Monster {
     public void addToMonsterInventory(Item item) {
         monsterInventory.add(item);
     }
-    public void setStory(String story) {
-        this.story = story;
-    }
-
     public void setName(String monsterName) {
         this.name = monsterName;
     }
-
     public String getName(){
         return name;
     }

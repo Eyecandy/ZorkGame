@@ -1,4 +1,6 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.libraries;
+
+import io.muic.ooc.zork.items.Item;
 
 import java.util.HashMap;
 

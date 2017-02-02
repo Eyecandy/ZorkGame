@@ -1,4 +1,7 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.world;
+
+import io.muic.ooc.zork.mass.producers.GameMapGenerator;
+import io.muic.ooc.zork.world.GameMap;
 
 /**
  * Created by joakimnilfjord on 1/28/2017 AD.
@@ -8,6 +11,7 @@ public class Level {
     GameMapGenerator gameMapGenerator;
     GameMap gameMap;
     String storyOfLevel;
+
     public Level(GameMapGenerator gameMapGenerator) {
         this.gameMapGenerator = gameMapGenerator;
     }
@@ -15,10 +19,12 @@ public class Level {
     public void setName(String nameOfLevel) {
         this.nameOfLevel = nameOfLevel;
     }
+
     public void getNameOfLevel() {
         System.out.println(nameOfLevel);
         System.out.println(storyOfLevel);
     }
+
     public void setStory(String storyOfLevel) {
         this.storyOfLevel = storyOfLevel;
     }

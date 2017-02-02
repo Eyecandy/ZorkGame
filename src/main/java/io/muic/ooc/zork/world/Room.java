@@ -1,6 +1,8 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.world;
 
-import java.util.ArrayList;
+import io.muic.ooc.zork.items.Item;
+import io.muic.ooc.zork.living.things.Monster;
+
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -8,14 +10,15 @@ import java.util.HashSet;
  * Created by joakimnilfjord on 1/28/2017 AD.
  */
 public class Room {
-    private final String SOUTH="South";
-    private final String NORTH="North";
-    private final String EAST="East";
-    private final String WEST="West";
+    private final String SOUTH = "South";
+    private final String NORTH = "North";
+    private final String EAST = "East";
+    private final String WEST = "West";
     private String name;
     private Story roomStory;
-    private HashMap<String,HashSet<Monster>> monsterAtdir = new HashMap<String, HashSet<Monster>>();
-    private HashMap<String,HashSet<Item>>  itemAtDir = new HashMap<String, HashSet<Item>>();
+    private HashMap<String, HashSet<Monster>> monsterAtdir = new HashMap<String, HashSet<Monster>>();
+    private HashMap<String, HashSet<Item>> itemAtDir = new HashMap<String, HashSet<Item>>();
+
     public Room() {
         itemAtDir.put(SOUTH, new HashSet<Item>());
         itemAtDir.put(NORTH, new HashSet<Item>());
@@ -27,10 +30,11 @@ public class Room {
         monsterAtdir.put(WEST, new HashSet<Monster>());
 
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getName() {
         return name;
     }
@@ -41,29 +45,30 @@ public class Room {
         if (itemAtDir.get(dir).isEmpty()) {
             itemHashSet = new HashSet<Item>();
             itemHashSet.add(item);
-            itemAtDir.put(dir,itemHashSet);
-        }
-        else {
+            itemAtDir.put(dir, itemHashSet);
+        } else {
             itemHashSet = itemAtDir.get(dir);
             itemHashSet.add(item);
-            itemAtDir.put(dir,itemHashSet);}
+            itemAtDir.put(dir, itemHashSet);
+        }
     }
-    public void removeItem(String dir,Item item) {
+
+    public void removeItem(String dir, Item item) {
         if (itemAtDir.containsKey(dir)) {
-            HashSet<Item>  items = itemAtDir.get(dir);
+            HashSet<Item> items = itemAtDir.get(dir);
             if (items.contains(item)) {
                 items.remove(item);
-                itemAtDir.put(dir,items);
+                itemAtDir.put(dir, items);
             }
         }
     }
 
     public void setStory(String southStory, String northStory, String eastStory, String westStory) {
         roomStory = new Story();
-        roomStory.setDirToStory(SOUTH,southStory);
-        roomStory.setDirToStory(NORTH,northStory);
-        roomStory.setDirToStory(EAST,eastStory);
-        roomStory.setDirToStory(WEST,westStory);
+        roomStory.setDirToStory(SOUTH, southStory);
+        roomStory.setDirToStory(NORTH, northStory);
+        roomStory.setDirToStory(EAST, eastStory);
+        roomStory.setDirToStory(WEST, westStory);
     }
 
 
@@ -79,26 +84,10 @@ public class Room {
         HashSet<Monster> monsters = new HashSet<Monster>();
         monsters.add(monster);
 
-        monsterAtdir.put(dir,monsters);
+        monsterAtdir.put(dir, monsters);
     }
 
     public HashMap<String, HashSet<Monster>> getMonsterAtdir() {
         return monsterAtdir;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

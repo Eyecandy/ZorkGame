@@ -1,11 +1,13 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.mass.producers;
+
+import io.muic.ooc.zork.living.things.Monster;
 
 /**
  * Created by joakimnilfjord on 1/28/2017 AD.
  */
 public class MonsterFactory {
 
-    public Monster createMonster(int monsterType,String monsterName,int damage,int health) {
+    public Monster createMonster(int monsterType, String monsterName, int damage, int health) {
         switch(monsterType) {
             case 1:
                 Monster monster = new Monster();

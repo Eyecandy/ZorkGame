@@ -1,6 +1,8 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.items;
 
-import java.util.HashMap;
+import io.muic.ooc.zork.items.Item;
+import io.muic.ooc.zork.items.Obstacle;
+
 import java.util.HashSet;
 
 /**
@@ -8,7 +10,6 @@ import java.util.HashSet;
  */
 public class Tool extends Item {
     private  HashSet<Obstacle> obstaclesWhichToolCanOpen = new HashSet<Obstacle>();
-
     public void setThingsToolCanOpen(Obstacle obstacle) {
         obstaclesWhichToolCanOpen.add(obstacle);
     }

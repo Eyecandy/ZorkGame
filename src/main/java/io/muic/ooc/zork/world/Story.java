@@ -1,4 +1,4 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.world;
 
 import java.util.HashMap;
 
@@ -9,10 +9,12 @@ public class Story {
 
     private HashMap<String, String> dirToStory = new HashMap<String, String>();
 
-    public void setDirToStory(String dir, String story){dirToStory.put(dir,story);
+    public void setDirToStory(String dir, String story) {
+        dirToStory.put(dir, story);
     }
+
     public String getDirAndStory(String dir) {
-        String dirAndStory = dir + ": "+dirToStory.get(dir);
+        String dirAndStory = dir + ": " + dirToStory.get(dir);
         return dirAndStory;
     }
 

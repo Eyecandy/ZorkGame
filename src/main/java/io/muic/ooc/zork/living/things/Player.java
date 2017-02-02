@@ -1,6 +1,10 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.living.things;
 
 
+import io.muic.ooc.zork.world.GameMap;
+import io.muic.ooc.zork.world.Room;
+import io.muic.ooc.zork.items.*;
+import io.muic.ooc.zork.libraries.StringToItemLibrary;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,18 +25,21 @@ public class Player {
     private HashSet<String> validDirections = new HashSet<String>();
     private GameMap gameMap;
 
-    public Player(String name,int health,int inventorySize, StringToItemLibrary stringToItemLibrary) {
+    public Player(String name, int health, int inventorySize, StringToItemLibrary stringToItemLibrary) {
         this.name = name;
         this.health = health;
         this.inventorySize = inventorySize;
         this.stringToItemLibrary = stringToItemLibrary;
-        validDirections.add("South");validDirections.add("West");
-        validDirections.add("North");validDirections.add("East");
+        validDirections.add("South");
+        validDirections.add("West");
+        validDirections.add("North");
+        validDirections.add("East");
     }
 
     public void getName() {
         System.out.println(name);
     }
+
     private void setHealth(int damage) {
         health -= damage;
     }
@@ -40,12 +47,15 @@ public class Player {
     public void getInventory() {
         if (inventory.isEmpty()) {
             System.out.println("Your inventory is empty");
-        }
-        else {
-            for (int i=0;i < inventory.size();i++) {{
-                if (inventory.get(i) instanceof Weapon) {System.out.println(i +": " +inventory.get(i).getName() + " (Weapon) damage:" + ((Weapon) inventory.get(i)).getDamage());}
-                else {System.out.println(i +": " +inventory.get(i).getName() + " (Tool)");}
-            }
+        } else {
+            for (int i = 0; i < inventory.size(); i++) {
+                {
+                    if (inventory.get(i) instanceof Weapon) {
+                        System.out.println(i + ": " + inventory.get(i).getName() + " (Weapon) damage:" + ((Weapon) inventory.get(i)).getDamage());
+                    } else {
+                        System.out.println(i + ": " + inventory.get(i).getName() + " (Tool)");
+                    }
+                }
 
             }
         }
@@ -62,27 +72,23 @@ public class Player {
         HashSet<Item> itemsAtDir = room.getItemsAtDir(playerDirection);
 
 
-        if (!itemsAtDir.contains(item) ) {
+        if (!itemsAtDir.contains(item)) {
             System.out.println("I don't recognize that item :" + nameOfItem);
 
             return 2;
-        }
-        else if  (!item.isEquipable()) {
+        } else if (!item.isEquipable()) {
             System.out.println("You can't loot that item: " + item.getName());
 
             return 3;
-        }
-
-        else if (inventory.size() >= inventorySize) {
+        } else if (inventory.size() >= inventorySize) {
 
             System.out.println("Your inventory is full, throw an item out to clear space");
             return 4;
 
-        }
-        else {
+        } else {
             inventory.add(item);
-            room.removeItem(playerDirection,item);
-            System.out.println(item.getName() +" added to inventory");
+            room.removeItem(playerDirection, item);
+            System.out.println(item.getName() + " added to inventory");
             return 0;
         }
     }
@@ -96,16 +102,16 @@ public class Player {
 
         if (inventory.contains(item)) {
             inventory.remove(item);
-            room.addItemToRoom(playerDirection,item);
+            room.addItemToRoom(playerDirection, item);
             System.out.println("You removed " + item.getName() + " from your inventory");
             return 0;
-        }
-        else {
+        } else {
             System.out.println("You have no such item in your inventory");
             return 2;
         }
     }
-    public void setPosition(GameMap gameMap,int roomNo) {
+
+    public void setPosition(GameMap gameMap, int roomNo) {
         this.gameMap = gameMap;
         currRoomNO = roomNo;
         room = gameMap.getMap().get(roomNo);
@@ -113,36 +119,38 @@ public class Player {
 
     public void setPlayerDirection(String playerDirection) {
 
-        if (validDirections.contains(playerDirection)) {this.playerDirection = playerDirection;
+        if (validDirections.contains(playerDirection)) {
+            this.playerDirection = playerDirection;
         }
     }
 
     public String getPlayerDirection() {
-        System.out.println(room.getName()+ ", " + room.getStory(playerDirection));
+        System.out.println(room.getName() + ", " + room.getStory(playerDirection));
         getItemAtDirection();
         getMonsterAtdir();
         return playerDirection;
 
     }
+
     private void getMonsterAtdir() {
         if (room.getMonsterAtdir().containsKey(playerDirection) && !room.getMonsterAtdir().isEmpty()) {
-            for (Monster monster :room.getMonsterAtdir().get(playerDirection)) {
-                System.out.println(monster.getName()+": " +monster.getStory());
+            for (Monster monster : room.getMonsterAtdir().get(playerDirection)) {
+                System.out.println(monster.getName() + ": " + monster.getStory());
             }
 
         }
     }
-    
+
     private void getItemAtDirection() {
         HashSet<Item> itemsAtDir = room.getItemsAtDir(playerDirection);
         if (itemsAtDir != null && !itemsAtDir.isEmpty()) {
-            for (Item item: itemsAtDir) {
+            for (Item item : itemsAtDir) {
                 System.out.println(item.getName() + ": " + item.getObstacleStory());
             }
         }
     }
 
-    public int enter(GameMap gameMap,String nameOfObjectThatPlayerWantsToEnter) {
+    public int enter(GameMap gameMap, String nameOfObjectThatPlayerWantsToEnter) {
         if (!stringToItemLibrary.containsItem(nameOfObjectThatPlayerWantsToEnter)) {
             System.out.println("There is no entrance by that name: " + nameOfObjectThatPlayerWantsToEnter);
             return 1;
@@ -152,22 +160,18 @@ public class Player {
 
 
         if (!isEntranceAtcurrDir) {
-            System.out.println("There is no such entrance here: "+ nameOfObjectThatPlayerWantsToEnter);
+            System.out.println("There is no such entrance here: " + nameOfObjectThatPlayerWantsToEnter);
 
             return 2;
-        }
-        else if (!(item instanceof Entrance)){
+        } else if (!(item instanceof Entrance)) {
 
             System.out.println((item.getName() + "....you can't enter that"));
             return 3;
-        }
-        else if (!((Entrance) item).getOpen()){
+        } else if (!((Entrance) item).getOpen()) {
             Entrance entrance = (Entrance) item;
             System.out.println(entrance.getItemStorywhenClosed());
             return 4;
-        }
-
-        else {
+        } else {
             System.out.println("Success");
             Entrance entrance = (Entrance) item;
 
@@ -175,12 +179,12 @@ public class Player {
             if (currRoomNO < roomNo) {
                 currRoomNO = roomNo;
                 room = gameMap.getMap().get(roomNo);
-                System.out.println("You are entering: " + room.getName());}
-            else {
+                System.out.println("You are entering: " + room.getName());
+            } else {
                 roomNo = entrance.getGoBackToRoom();
                 currRoomNO = roomNo;
                 room = gameMap.getMap().get(roomNo);
-                System.out.println("You are entering: " +room.getName());
+                System.out.println("You are entering: " + room.getName());
             }
             return 0;
         }
@@ -212,7 +216,7 @@ public class Player {
         }
 
         if (!room.getItemsAtDir(playerDirection).contains(itemO)) {
-            System.out.println(("It's no such obstacle at this room in this direction: "+ obstacleName));
+            System.out.println(("It's no such obstacle at this room in this direction: " + obstacleName));
             return 6;
         }
 
@@ -229,8 +233,7 @@ public class Player {
 
             obstacle.setOpen(true);
             return 0;
-        }
-        else {
+        } else {
             System.out.println("Hmm...that didn't work out for ya");
             return 7;
         }
@@ -244,7 +247,7 @@ public class Player {
         }
         Item item = stringToItemLibrary.getItem(containerName);
         if (!room.getItemsAtDir(playerDirection).contains(item)) {
-            System.out.println("There is no such container at this room at this direction: "+ containerName);
+            System.out.println("There is no such container at this room at this direction: " + containerName);
             return 2;
         }
 
@@ -256,16 +259,15 @@ public class Player {
         if (!container.getOpen()) {
             System.out.println(container.getItemStorywhenClosed());
             return 4;
-        }
-        else {
+        } else {
             System.out.println("You've opened the container and find: ");
             if (container.getContent().isEmpty()) {
                 System.out.println("That it is just an empty container");
                 return 5;
             }
 
-            for (Item i: container.getContent()) {
-                room.addItemToRoom(playerDirection,i);
+            for (Item i : container.getContent()) {
+                room.addItemToRoom(playerDirection, i);
                 System.out.println(i.getName());
             }
             System.out.println("You take everything out of the container and put it on the floor for inspection");
@@ -280,9 +282,9 @@ public class Player {
         return room;
     }
 
-    public int attack(String weaponName,String monsterName) {
+    public int attack(String weaponName, String monsterName) {
         if (!stringToItemLibrary.containsItem(weaponName)) {
-            System.out.println("There exist no such weapon in the game: "+ weaponName);
+            System.out.println("There exist no such weapon in the game: " + weaponName);
             return 1;
         }
 
@@ -291,7 +293,7 @@ public class Player {
             return 2;
         }
         if (!room.getMonsterAtdir().containsKey(playerDirection) || room.getMonsterAtdir().get(playerDirection).isEmpty()) {
-            System.out.println("There is no such Monster here: "+ monsterName);
+            System.out.println("There is no such Monster here: " + monsterName);
             return 3;
         }
 
@@ -299,34 +301,35 @@ public class Player {
         if (!inventory.contains(weaponOfChoice)) {
             System.out.println("You do not posses that weapon: " + weaponName);
         }
-        for (Monster monster :room.getMonsterAtdir().get(playerDirection)) {
+        for (Monster monster : room.getMonsterAtdir().get(playerDirection)) {
             if (monster.getName().equals(monsterName)) {
                 if (!monster.getIsAlive()) {
                     System.out.println("That's a corpse, you are trying to hit..dummy");
                     return 4;
                 }
                 int damage = weaponOfChoice.getDamage();
-                int monsterHealth  =monster.getHealth();
+                int monsterHealth = monster.getHealth();
                 Random random = new Random();
-                int damagePlayer = random.nextInt(damage) +1;
-                int damageMonster = random.nextInt(monster.getDamage())+1;
+                int damagePlayer = random.nextInt(damage) + 1;
+                int damageMonster = random.nextInt(monster.getDamage()) + 1;
                 int tempHealth = health;
                 monster.setHealth(damagePlayer);
-                System.out.println("You deal " + damagePlayer+ " damage, Health of " + monsterName + " Was "+ monsterHealth+ " and is now " + monster.getHealth());
+                System.out.println("You deal " + damagePlayer + " damage, Health of " + monsterName + " Was " + monsterHealth + " and is now " + monster.getHealth());
                 setHealth(damageMonster);
-                System.out.println("retaliated with "+ damageMonster + " damage , your health was " +tempHealth+" is now "+ health);
+                System.out.println("retaliated with " + damageMonster + " damage , your health was " + tempHealth + " is now " + health);
 
                 if (monster.getHealth() <= 0) {
-                    HashSet<Item> loot =  monster.setDead();
+                    HashSet<Item> loot = monster.setDead();
                     loot.size();
-                    for (Item item: loot) {
-                        room.addItemToRoom(playerDirection,item);
+                    for (Item item : loot) {
+                        room.addItemToRoom(playerDirection, item);
                         System.out.println("Monster drops " + item.getName());
                     }
                     return 0;
                 }
                 if (health <= 0) {
-                setDead(monster);}
+                    setDead(monster);
+                }
 
 //                if (damagePlayer>damageMonster) {
 //                    System.out.println("You've hurt " + monster.getName() + ",but it falls back into to the shadows of room... lurking");
@@ -340,31 +343,12 @@ public class Player {
         }
         return 2;
     }
+
     private void setDead(Monster monster) {
-        setPosition(gameMap,currRoomNO-1);
+        setPosition(gameMap, currRoomNO - 1);
         health = 100;
         monster.setHealth(100);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

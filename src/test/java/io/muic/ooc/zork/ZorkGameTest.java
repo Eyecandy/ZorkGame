@@ -1,8 +1,14 @@
 package io.muic.ooc.zork;
 
+import io.muic.ooc.zork.libraries.StringToItemLibrary;
+import io.muic.ooc.zork.libraries.ToolToObstacleLibrary;
+import io.muic.ooc.zork.living.things.Player;
+import io.muic.ooc.zork.mass.producers.GameMapGenerator;
+import io.muic.ooc.zork.mass.producers.ItemFactory;
+import io.muic.ooc.zork.world.GameMap;
+import io.muic.ooc.zork.world.Level;
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import sun.misc.ASCIICaseInsensitiveComparator;
 
 /**
  * Created by joakimnilfjord on 1/30/2017 AD.
@@ -64,6 +70,7 @@ public class ZorkGameTest extends TestCase {
         Assert.assertEquals(player.enter(gameMap, "Wooden_door"),0);
         player.setPlayerDirection("South");
         player.getPlayerDirection();
+        Assert.assertEquals(player.addToInventory("red_key_stone"),1);
         Assert.assertEquals(player.addToInventory("Red_key_stone"),0);
         player.setPlayerDirection("East");
         Assert.assertEquals(player.addToInventory("Lava_jar"),0);
@@ -123,7 +130,8 @@ public class ZorkGameTest extends TestCase {
         player.setPosition(gameMap,0);
         player.getPlayerDirection();
         player.getInventory();
-        player.throwAnItem("Torch");
+
+        Assert.assertEquals(player.throwAnItem("Torch"),0);
         player.setPlayerDirection("South");
         player.getPlayerDirection();
         player.addToInventory("Hammer");
@@ -137,6 +145,7 @@ public class ZorkGameTest extends TestCase {
         player.addToInventory("Great_sword");
         player.setPlayerDirection("North");
         player.getPlayerDirection();
+        Assert.assertEquals(player.throwAnItem("Torch"),2);
         player.enter(gameMap,"Dark_hall_way");
         player.setPlayerDirection("East");
         player.getPlayerDirection();
@@ -149,7 +158,7 @@ public class ZorkGameTest extends TestCase {
         player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
         player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
         player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
-
+        Assert.assertEquals(player.enter(gameMap,"Purple_wall"),1);
         player.getPlayerDirection();
         player.addToInventory("Magical_climbing_gloves");
         player.addToInventory("Spear");
@@ -166,7 +175,7 @@ public class ZorkGameTest extends TestCase {
         player.getPlayerDirection();
         player.setPlayerDirection("South");
         Assert.assertEquals(player.enter(gameMap,"Purple_wall"),4);
-
+        Assert.assertEquals(player.addToInventory("Boom_stick"),2);
         player.getPlayerDirection();
         player.setPlayerDirection("North");
         Assert.assertEquals(player.enter(gameMap,"Pufal"),1);
@@ -178,7 +187,7 @@ public class ZorkGameTest extends TestCase {
         player.setPlayerDirection("East");
         player.setPlayerDirection("North");
         player.enter(gameMap,"Open_gate");
-
+        Assert.assertEquals(player.throwAnItem("Torch"),2);
         player.setPlayerDirection("South");   player.attack("Boom_stick","Clown");
         player.attack("Boom_stick","Clown");   player.attack("Boom_stick","Clown");
         player.attack("Boom_stick","Clown");
@@ -207,6 +216,7 @@ public class ZorkGameTest extends TestCase {
         player.useTool("Portal_key","Portal");
         player.getPlayerDirection();
         player.enter(gameMap,"Portal");
+
 
 
     }

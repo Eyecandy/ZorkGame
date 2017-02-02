@@ -1,4 +1,4 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.items;
 
 /**
  * Created by joakimnilfjord on 1/28/2017 AD.
@@ -9,7 +9,7 @@ public class Obstacle extends Item {
     private String itemStory;
 
     public void setOpen(boolean open) {
-        this.open= open;
+        this.open = open;
     }
 
     public void setStory(String itemStory) {
@@ -29,25 +29,12 @@ public class Obstacle extends Item {
     }
 
     public String getObstacleStory() {
-
         if (open) {
             return itemStory;
-
-        }
-        else{
+        } else {
             return getItemStorywhenClosed();
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

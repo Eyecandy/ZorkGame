@@ -1,28 +1,33 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.mass.producers;
+
+import io.muic.ooc.zork.items.Readable;
+import io.muic.ooc.zork.libraries.StringToItemLibrary;
+import io.muic.ooc.zork.items.Weapon;
+import io.muic.ooc.zork.items.Container;
+import io.muic.ooc.zork.items.Entrance;
+import io.muic.ooc.zork.items.Item;
 
 /**
  * Created by joakimnilfjord on 1/28/2017 AD.
  */
 public class ItemFactory {
     StringToItemLibrary stringToItemLibrary;
+
     public ItemFactory(StringToItemLibrary stringToItemLibrary) {
         this.stringToItemLibrary = stringToItemLibrary;
 
     }
 
-
-
-    public Weapon createWeapon( String name, int damage, String story) {
-                Weapon weapon = new Weapon();
-                weapon.setName(name);
-                weapon.setDamage(damage);
-                weapon.setEquipable(true);
-                weapon.setStory(story);
-                stringToItemLibrary.setStringToItem(name,weapon);
-                return weapon;
+    public Weapon createWeapon(String name, int damage, String story) {
+        Weapon weapon = new Weapon();
+        weapon.setName(name);
+        weapon.setDamage(damage);
+        weapon.setEquipable(true);
+        weapon.setStory(story);
+        stringToItemLibrary.setStringToItem(name, weapon);
+        return weapon;
 
     }
-
 
     public Entrance createEntrance(String entranceName,
                                    boolean open,
@@ -35,10 +40,12 @@ public class ItemFactory {
         entrance.setName(entranceName);
         entrance.setStory(obstacleStory);
         entrance.setOpen(open);
-        if (!open) { entrance.setItemStorywhenClosed(ifClosedStory);}
+        if (!open) {
+            entrance.setItemStorywhenClosed(ifClosedStory);
+        }
         entrance.setEntranceRoom(roomNo);
         entrance.setGoBackToRoom(backwardRoomNo);
-        stringToItemLibrary.setStringToItem(entranceName,entrance);
+        stringToItemLibrary.setStringToItem(entranceName, entrance);
         return entrance;
     }
 
@@ -50,15 +57,16 @@ public class ItemFactory {
         container.addContent(content);
         container.setOpen(open);
         container.setItemStorywhenClosed(storyClosed);
-        stringToItemLibrary.setStringToItem(containerName,container);
+        stringToItemLibrary.setStringToItem(containerName, container);
         return container;
     }
 
     public Readable createReadable(String readableName, String Story) {
         Readable readable = new Readable();
-        readable.setName(readableName); readable.setStory(Story);
+        readable.setName(readableName);
+        readable.setStory(Story);
         readable.setEquipable(false);
-        stringToItemLibrary.setStringToItem(readableName,readable);
+        stringToItemLibrary.setStringToItem(readableName, readable);
         return readable;
     }
 
@@ -66,12 +74,6 @@ public class ItemFactory {
     public StringToItemLibrary getStringToItemLibrary() {
         return stringToItemLibrary;
     }
-
-
-
-
-
-
 
 
 }

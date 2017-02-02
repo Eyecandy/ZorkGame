@@ -1,4 +1,7 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.libraries;
+
+import io.muic.ooc.zork.mass.producers.ToolFactory;
+import io.muic.ooc.zork.items.Tool;
 
 /**
  * Created by joakimnilfjord on 1/31/2017 AD.

@@ -1,4 +1,4 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.items;
 
 import java.util.HashSet;
 

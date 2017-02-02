@@ -1,18 +1,20 @@
-package io.muic.ooc.zork;
+package io.muic.ooc.zork.mass.producers;
+
+import io.muic.ooc.zork.world.GameMap;
+import io.muic.ooc.zork.world.Room;
 
 /**
  * Created by joakimnilfjord on 1/28/2017 AD.
  */
 public class GameMapGenerator {
-    GameMap gameMap;
-    ItemFactory itemFactory;
-    RoomGenerator roomGenerator;
+    private GameMap gameMap;
+    private ItemFactory itemFactory;
+    private RoomGenerator roomGenerator;
     public GameMapGenerator(ItemFactory itemFactory) {
         this.itemFactory = itemFactory;
     }
 
     public GameMap createMapLevel1() {
-
         gameMap = new GameMap();
         roomGenerator = new RoomGenerator(itemFactory);
         Room room1 = roomGenerator.createRoom1();
