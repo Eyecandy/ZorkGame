@@ -1,11 +1,29 @@
-The flow: everythings starts in Main(ZorkRunner) then the player will have to pick which level to go. After that the level in CreateLevel, will generate the map.From itemFactory all items are generated, from monster factory all monsters are generated. The is initialized by itself.
-From there the game starts and the player can use the command line to perform actions. Which will be considered wether or not is valid by the commandLineParser. Every commandline input can be either valid or not valid. if valid the action will be performed. If interacting with items and an action on the item is changed the attribute of the item might change in it's respective class.
+The whole program starts when running ZorkRunner, which calls the startgame method in zorkgame
+
+the zorkgame creates Libraries which will be used by many classes. the libraries is a String to object converter.
+
+The ZorkGame then creates a new Level which will initalize the gameMapGenrator in Level which in turn initalizes the RoomGenerator.
+
+The RoomGenerator will use the ItemFactory and MonsterFactory to create Items and Monsters, then the RoomGenerator will put Items and Monsters created into that room and as Items are created in the ItemFactory the will be put in the StringToItemLibrary.
+
+Side note: Inheritance and why I used it.
+I use inheritance on Items, because Tool, Obstacel,Weapon and Readable all share a common traits, they all have names,stories and a boolean isEquipable. However they also differ, Weapons for examples have an damage attribute. And tools can be used to open locked Obstacles.
+
+I further created the subclass Container and Entrance. Since Container and Entrances both have common attributes and methods, they can both be locked or open. However Entrance can take you from one room to the next. And Containers contains Items.
+
+Continue on flow:
+RoomGenerator will also use a MonsterFactory which produces monsters.
+
+The final output of the RoomGenerator is a Room, which are simply added into the GameMapGenerator which in turn produces a GameMap.
+
+The end result is that the level contains a GameMap.Then the player is created and is put into the GameMap.
+
+And now the ZorkGame will create a CommandParser and a Command.The CommandParser's start method is called and now the program can take in inputs from user.
+
+if the CommandParser see the keyWords as valid. it will send the arguements to a specific function based on keyWord inside the player class. Else an error message will appear. (did not recognize keyWord.)
+
+ And if the arguments are valid the player will perform the action.Else an Error message will appear did not find item or monster etc.
 
 
-The inheritances that exist are in items which are separated into three groups obstacles,weapons and tools.
-Because they are all three items, but they have different purposes. Like a weapon for example does damage, and can be wielded, but a door can not be used as a weapon. Furthermore there are more specifc subclasses of the obstacles,Weapons and tools. These are the items that actually will be initialised, like keys and long bow. Inheritance is usedd because they share similar traits.
 
-Level is a superclass of level 1, because they will have similar methods and attributes.
-
-Stage will be a super class of stage 1, again because there a similar methods and attributes for each stage.
 

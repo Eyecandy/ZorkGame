@@ -20,6 +20,9 @@ public class ZorkGameTest extends TestCase {
     Level level3;
     ToolToObstacleLibrary toolToObstacleLibrary;
     public void testStartLevel1() throws Exception {
+
+        //Asserted the whole Game from start to finnish
+        
         StringToItemLibrary stringToItemLibrary = new StringToItemLibrary();
         toolToObstacleLibrary = new ToolToObstacleLibrary(stringToItemLibrary);
         ItemFactory itemFactory = new ItemFactory(stringToItemLibrary);
@@ -149,7 +152,7 @@ public class ZorkGameTest extends TestCase {
         player.enter(gameMap,"Dark_hall_way");
         player.setPlayerDirection("East");
         player.getPlayerDirection();
-        //This testing will only work if randomized location is turned off on monster. I.e comment it out
+        //This testing will only work if randomized location is turned off on monster. I commented the code out in player
         player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
         player.attack("Great_sword","wicked_spirit");player.attack("Great_sword","wicked_spirit");
         player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
@@ -211,11 +214,14 @@ public class ZorkGameTest extends TestCase {
         player.attack("Boom_stick","Clown");
         player.attack("Boom_stick","Clown");
         player.attack("Boom_stick","Clown");
+        Assert.assertEquals(player.enter(gameMap,"Portal_key"),3);
+        Assert.assertEquals(player.enter(gameMap,"Portal"),2);
         player.addToInventory("Portal_key");
         player.setPlayerDirection("West");
+        Assert.assertEquals(player.enter(gameMap,"Portal"),4);
         player.useTool("Portal_key","Portal");
         player.getPlayerDirection();
-        player.enter(gameMap,"Portal");
+        Assert.assertEquals(player.enter(gameMap,"Portal"),0);
 
 
 

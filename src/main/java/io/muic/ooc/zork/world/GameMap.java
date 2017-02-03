@@ -12,9 +12,6 @@ public class GameMap {
         mapOfLevel.add(room);
     }
 
-//    public String getRoomName(int pos) {
-//        return mapOfLevel.get(pos).getName();
-//    }
 
     public ArrayList<Room> getMap() {
         return mapOfLevel;

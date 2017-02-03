@@ -26,7 +26,6 @@ public class RoomGenerator {
         room1.setStory("There is a wall", "There is a Heavy Metal door",
                 "There is Wall", "Stairs without end, leading upwards in a spiral");
         Weapon torch = itemFactory.createWeapon("Torch", 5, "It is ligting the room up");
-
         Entrance stairs = itemFactory.createEntrance("Stairs", true, "to go there press: enter [ entranceName ] ", 1, 0, "it's closed");
         Entrance heavyMetal = itemFactory.createEntrance("Metal_door", false,
                 "It's barricaded from the outside",
@@ -46,7 +45,6 @@ public class RoomGenerator {
         Room room2 = new Room();
         room2.setName("Stage 2 of Tower");
         room2.setStory("A mystical blue looking door", "A Door", "Stairs leading downwards", "Stairs leading upwards");
-
         Entrance stairs = (Entrance) itemFactory.getStringToItemLibrary().getItem("Stairs");
         Entrance stairsUp = itemFactory.createEntrance("Long_steps", true, "Stairs leading upwards.Each step looks like a struggle.", 4, 1, "closed");
         Entrance azureDoor = itemFactory.createEntrance("Azure_door", false, "It's open", 3, 1, "It's closed");
@@ -216,7 +214,6 @@ public class RoomGenerator {
         Entrance portal = itemFactory.createEntrance("Portal", false, "portal outta here", 2, 1, "closed portal");
         room9.setStory("The wind blows strongly, like it's powerful and dangerous", "There is a pillar, it offers shelter from the wind", "There is gushing wind, that goes through bones", "There is a supersonic wind, have you ever felt a supersonic wind before...I didn't think so");
         portalKey.setThingsToolCanOpen(portal);
-
         Monster clown = monsterFactory.createMonster(1, "Clown", 2, 95);
         clown.addToMonsterInventory(portalKey);
         room9.addItemToRoom("West", portal);
