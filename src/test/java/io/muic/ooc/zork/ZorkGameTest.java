@@ -31,22 +31,34 @@ public class ZorkGameTest extends TestCase {
         Player player = new Player("Jo",100,30,stringToItemLibrary);
         level1.setName("The tall tower");
         gameMap = level1.generateGameMap(1);
+
         player.setPosition(gameMap,0);
+        //Assert Direction
+        player.setPlayerDirection("South");
+        Assert.assertEquals(player.getPlayerDirection(),"South");
+        player.setPlayerDirection("East");
+        Assert.assertEquals(player.getPlayerDirection(),"East");
+        player.setPlayerDirection("West");
+        Assert.assertEquals(player.getPlayerDirection(),"West");
         player.setPlayerDirection("North");
-        player.getPlayerDirection();
         Assert.assertEquals(player.getPlayerDirection(),"North");
+
+        //Assert inventory
         Assert.assertEquals(player.addToInventory("bababh"),1);
         Assert.assertEquals(player.throwAnItem("Torch"),2);
         Assert.assertEquals(player.throwAnItem("babab"),1);
         player.setPlayerDirection("South");
         player.getPlayerDirection();
+        //Assert usingTool
         Assert.assertEquals(player.open("Wooden_box"),0);
+        //Assert inventory
         Assert.assertEquals(player.addToInventory("Metal_thread"),0);
         Assert.assertEquals(player.getPlayerDirection(),"South");
         Assert.assertEquals(player.addToInventory("Wooden_box"),3);
         Assert.assertEquals(player.addToInventory("Torch"),2);
         Assert.assertEquals(player.addToInventory("bababh"),1);
         player.setPlayerDirection("East");
+        //Assert inventory
         Assert.assertEquals(player.addToInventory("Torch"),0);
         Assert.assertEquals(player.getPlayerDirection(),"East");
         player.setPlayerDirection("West");
@@ -61,18 +73,22 @@ public class ZorkGameTest extends TestCase {
         player.getPlayerDirection();
         player.setPlayerDirection("East");
         player.getPlayerDirection();
-        player.enter(gameMap,"Stairs");
+        //Assert Enter new Room
+        Assert.assertEquals(player.enter(gameMap,"Stairs"),0);
         player.setPlayerDirection("West");
         player.getPlayerDirection();
         player.getInventory();
         player.setPlayerDirection("South");
+        Assert.assertEquals(player.enter(gameMap,"Stairs"),2);
         player.setPlayerDirection("West");
-        player.enter(gameMap,"Stairs");
+        Assert.assertEquals(player.enter(gameMap,"Stairs"),0);
         player.setPlayerDirection("North");
+        //Assert useTool
         Assert.assertEquals(player.useTool("Metal_thread", "Wooden_door"),0);
         Assert.assertEquals(player.enter(gameMap, "Wooden_door"),0);
         player.setPlayerDirection("South");
         player.getPlayerDirection();
+        //Assert inventory;
         Assert.assertEquals(player.addToInventory("red_key_stone"),1);
         Assert.assertEquals(player.addToInventory("Red_key_stone"),0);
         player.setPlayerDirection("East");
@@ -80,6 +96,7 @@ public class ZorkGameTest extends TestCase {
         player.setPlayerDirection("South");
         player.enter(gameMap, "Wooden_door");
         player.setPlayerDirection("South");
+        //assert tool and throw and take item
         Assert.assertEquals(player.useTool("Lava_jar","Iron_box"),0);
         Assert.assertEquals(player.enter(gameMap,"Azure_door"),4);
         Assert.assertEquals(player.throwAnItem("Metal_thread"),0);
@@ -109,7 +126,6 @@ public class ZorkGameTest extends TestCase {
         Assert.assertEquals(player.open("Diamond_lock_box"),0);
         Assert.assertEquals(player.addToInventory("Xbow"),0);
         player.setPlayerDirection("North");
-
         Assert.assertEquals(player.enter(gameMap,"Azure_door"),0);
         player.setPlayerDirection("West");
         player.getPlayerDirection();
@@ -133,7 +149,6 @@ public class ZorkGameTest extends TestCase {
         player.setPosition(gameMap,0);
         player.getPlayerDirection();
         player.getInventory();
-
         Assert.assertEquals(player.throwAnItem("Torch"),0);
         player.setPlayerDirection("South");
         player.getPlayerDirection();
@@ -153,6 +168,7 @@ public class ZorkGameTest extends TestCase {
         player.setPlayerDirection("East");
         player.getPlayerDirection();
         //This testing will only work if randomized location is turned off on monster. I commented the code out in player
+        //assert monster fight
         player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
         player.attack("Great_sword","wicked_spirit");player.attack("Great_sword","wicked_spirit");
         player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
@@ -163,6 +179,7 @@ public class ZorkGameTest extends TestCase {
         player.attack("Great_sword","wicked_spirit"); player.attack("Great_sword","wicked_spirit");
         Assert.assertEquals(player.enter(gameMap,"Purple_wall"),1);
         player.getPlayerDirection();
+        //assert that monster drops items
         player.addToInventory("Magical_climbing_gloves");
         player.addToInventory("Spear");
         player.setPlayerDirection("West");
@@ -174,6 +191,7 @@ public class ZorkGameTest extends TestCase {
         level3.setStory("You've reached the top of the tower");
         gameMap = level3.generateGameMap(3);
         level3.getNameOfLevel();
+        //Level 3 assert the same stuff as the level 1 and 2
         player.setPosition(gameMap,0);
         player.getPlayerDirection();
         player.setPlayerDirection("South");
